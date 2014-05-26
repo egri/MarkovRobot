@@ -1,3 +1,5 @@
+package hu.meditations.markovrobot;
+
 public class ControlPoint {
 
 	public int sensor1;

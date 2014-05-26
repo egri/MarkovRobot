@@ -1,3 +1,5 @@
+package hu.meditations.markovrobot;
+
 import java.awt.Graphics;
 import java.util.concurrent.TimeUnit;
 
@@ -36,7 +38,7 @@ public class Runner extends JPanel {
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}
-			this.paint();
+//			this.paint();
 		}
 	}
 

@@ -1,3 +1,5 @@
+package hu.meditations.markovrobot;
+
 public class Point {
 
 	private double x;

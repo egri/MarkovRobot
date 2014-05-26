@@ -1,3 +1,5 @@
+package hu.meditations.markovrobot;
+
 import java.awt.Color;
 
 public class Sensor {

@@ -1,3 +1,5 @@
+package hu.meditations.markovrobot;
+
 public class SegmentFactory {
 
 	public static ISegment createSegment(String[] data) throws Exception {

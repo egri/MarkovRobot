@@ -1,3 +1,5 @@
+package hu.meditations.markovrobot;
+
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
