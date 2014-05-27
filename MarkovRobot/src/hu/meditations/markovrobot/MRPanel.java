@@ -16,14 +16,17 @@ public class MRPanel extends JPanel {
         MRRun = new Runner();
         JButton startButton = new JButton("Start");       
         JButton stopButton  = new JButton("Stop");
+        JButton resetButton  = new JButton("Reset");
         startButton.addActionListener(new StartAction());
         stopButton.addActionListener(new StopAction());
+        resetButton.addActionListener(new ResetAction());
 
         //... Layout inner panel with two buttons horizontally
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.add(startButton);
         buttonPanel.add(stopButton);
+        buttonPanel.add(resetButton);
 
         //... Layout outer panel with button panel above animation
         this.setLayout(new BorderLayout());
@@ -36,7 +39,7 @@ public class MRPanel extends JPanel {
     class StartAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             MRRun.start();
-            MRRun.run();
+//            MRRun.run();
         }
     }
 
@@ -45,5 +48,12 @@ public class MRPanel extends JPanel {
             MRRun.stop();
         }
     }
-	
+
+    class ResetAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            MRRun.stop();
+            MRRun.reset();
+        }
+    }
+
 }

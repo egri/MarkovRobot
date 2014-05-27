@@ -25,6 +25,10 @@ public class Car extends JPanel {
 	private int stepCounter = 0;
 	
 	public Car(Point position, double phi) {
+		setPosition(position, phi);
+	}
+
+	public void setPosition(Point position, double phi) {
 		this.position = position;
 		this.phi = phi;
 	}

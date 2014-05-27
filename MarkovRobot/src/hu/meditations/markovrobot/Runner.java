@@ -1,9 +1,11 @@
 package hu.meditations.markovrobot;
 
 import java.awt.Graphics;
-import java.util.concurrent.TimeUnit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Runner extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -14,45 +16,58 @@ public class Runner extends JPanel {
 	private Sensor sensor2 = new Sensor(path, 6.0);
 	private boolean isRunning;
 	private double time; 
+	private double deltat = 0.01;
 
-	public Runner() {
+	private int screenOneStep = 10;    // Number of deltat steps in one animation step
+	private int screenInterval  = 35;  // Milliseconds between screen updates
+    private Timer screenTimer;         // Timer that fires to animation step
+
+    public Runner() {
 		car.setSensors(sensor1, sensor2);
 		car.setControl(control);
 		this.reset();
-		//frame.getContentPane().add(new JScrollPane(path));
-		//frame.getContentPane().add(car);
+		screenTimer = new Timer(screenInterval, new ScreenTimerAction());
 	}
-	
-	protected void paintComponent(Graphics g) {
-		path.paintComponent(g);
-		car.paintComponent(g);
-	}
-	
+    
 	public void run() {
-		double deltat = 0.01;
 		while (isRunning && time < 5.0) {
 			car.step(deltat);
 			time = time + deltat;
-			try {
-				TimeUnit.MILLISECONDS.sleep(1);
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
-//			this.paint();
 		}
 	}
-
-	public void reset() {
-		isRunning = false;
-		time = 0.0;
-	}
-
+	
 	public void start() {
 		isRunning = true;
+		screenTimer.start();
 	}
 
 	public void stop() {
 		isRunning = false;
+		screenTimer.stop();
 	}
 	
+	public void reset() {
+		isRunning = false;
+//		screenTimer.stop();
+		time = 0.0;
+		car.setPosition(path.getStartPosition(), path.getStartPhi());
+	}
+
+	protected void paintComponent(Graphics g) {
+		path.paintComponent(g);
+		car.paintComponent(g);
+	}
+
+    class ScreenTimerAction implements ActionListener {
+ 
+    	public void actionPerformed(ActionEvent e) {
+			for (int i = 0; i < screenOneStep; i++) {
+				car.step(deltat);
+				time = time + deltat;
+			}
+			repaint();
+    	}
+ 
+    }
+
 }
